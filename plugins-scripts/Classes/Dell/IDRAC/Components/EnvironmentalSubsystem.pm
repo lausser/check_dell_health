@@ -233,7 +233,12 @@ sub check {
   );
   $self->{ObjectStatus} = $self->{powerUnitStatus};
   $self->SUPER::check();
-  if ($self->{powerUnitRedundancyStatus} ne "full") {
+  if ($self->{powerSupplyCountForRedundancy} == 0) {
+    # This attribute defines the total number of power supplies
+    # required for this power unit to have full redundancy
+    # IMHO a value of 0 means that redundancy is not an issue at all
+    $self->add_ok();
+  } elsif ($self->{powerUnitRedundancyStatus} ne "full") {
     $self->add_warning();
   }
 }
