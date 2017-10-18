@@ -494,7 +494,8 @@ sub check {
     $self->add_unknown();
   }
   if (defined $self->{virtualDiskRemainingRedundancy} &&
-      ! $self->{virtualDiskRemainingRedundancy}) {
+      ! $self->{virtualDiskRemainingRedundancy} &&
+      $self->{virtualDiskLayout} ne "r0") {
     $self->add_warning_mitigation(sprintf '%s lost redundancy',
         $self->{virtualDiskFQDD});
   }

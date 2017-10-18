@@ -1,4 +1,4 @@
-libexec_SCRIPTS=check_fujitsu_health
+libexec_SCRIPTS=check_dell_health
 GL_MODULES=\
   ../GLPlugin/lib/Monitoring/GLPlugin/Commandline/Extraopts.pm \
   ../GLPlugin/lib/Monitoring/GLPlugin/Commandline/Getopt.pm \
