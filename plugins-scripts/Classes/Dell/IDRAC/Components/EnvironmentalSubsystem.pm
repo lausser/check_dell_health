@@ -11,8 +11,8 @@ sub init {
       systemPowerState systemPowerUpTime 
       alertMessage alertCurrentStatus alertDeviceDisplayName alertChassisName
   ));
+  $self->bulk_is_baeh(20);
   $self->get_snmp_tables('IDRAC-MIB-SMIv2', [
-      ['systemstates', 'systemStateTable', 'Classes::Dell::IDRAC::Components::SystemState'],
       ['chassisinformations', 'chassisInformationTable', 'Classes::Dell::IDRAC::Components::ChassisInformation'],
       #['eventlogs', 'eventLogTable', 'Classes::Dell::IDRAC::Components::EventLog'],
       ['systembioss', 'systemBIOSTable', 'Classes::Dell::IDRAC::Components::SystemBIOS'],
@@ -22,13 +22,13 @@ sub init {
       ['powerunits', 'powerUnitTable', 'Classes::Dell::IDRAC::Components::PowerUnit'],
       ['powersupplys', 'powerSupplyTable', 'Classes::Dell::IDRAC::Components::PowerSupply'],
       #too much unknowns#['voltageprobes', 'voltageProbeTable', 'Classes::Dell::IDRAC::Components::VoltageProbe'],
+      ['amperageprobes', 'amperageProbeTable', 'Classes::Dell::IDRAC::Components::AmperageProbe'],
       ['systembatterys', 'systemBatteryTable', 'Classes::Dell::IDRAC::Components::SystemBattery'],
       ['coolingunits', 'coolingUnitTable', 'Classes::Dell::IDRAC::Components::CoolingUnit'],
       ['coolingdevices', 'coolingDeviceTable', 'Classes::Dell::IDRAC::Components::CoolingDevice'],
       ['temperatureprobes', 'temperatureProbeTable', 'Classes::Dell::IDRAC::Components::TemperatureProbe'],
       ['processordevices', 'processorDeviceTable', 'Classes::Dell::IDRAC::Components::ProcessorDevice'],
       #['processordevicestatuss', 'processorDeviceStatusTable', 'Classes::Dell::IDRAC::Components::ProcessorDeviceStatus'],
-      ['memorydevices', 'memoryDeviceTable', 'Classes::Dell::IDRAC::Components::MemoryDevice'],
       ['frus', 'fruTable', 'Classes::Dell::IDRAC::Components::Fru'],
       ['controllers', 'controllerTable', 'Classes::Dell::IDRAC::Components::Controller'],
       ['physicaldisks', 'physicalDiskTable', 'Classes::Dell::IDRAC::Components::PhysicalDisk'],
@@ -38,6 +38,12 @@ sub init {
       ['enclosuremanagementmodules', 'enclosureManagementModuleTable', 'Classes::Dell::IDRAC::Components::EnclosureManagementModule'],
       ['batterys', 'batteryTable', 'Classes::Dell::IDRAC::Components::Battery'],
       ['virtualdisks', 'virtualDiskTable', 'Classes::Dell::IDRAC::Components::VirtualDisk'],
+  ]);
+  $self->reset_snmp_max_msg_size();
+  $self->bulk_is_baeh(0);
+  $self->get_snmp_tables('IDRAC-MIB-SMIv2', [
+      ['systemstates', 'systemStateTable', 'Classes::Dell::IDRAC::Components::SystemState'],
+#      ['memorydevices', 'memoryDeviceTable', 'Classes::Dell::IDRAC::Components::MemoryDevice'],
   ]);
 }
 
@@ -269,6 +275,21 @@ sub check {
       $self->{voltageProbeStatus},
   );
   $self->{ObjectStatus} = $self->{voltageProbeStatus};
+  $self->SUPER::check();
+}
+
+
+package Classes::Dell::IDRAC::Components::AmperageProbe;
+our @ISA = qw(Classes::Dell::IDRAC::Components::ObjectStatusEnum);
+use strict;
+
+sub check {
+  my $self = shift;
+  $self->add_info(sprintf 'amperage probe (%s) status is %s/%s',
+      $self->{amperageProbeLocationName}, $self->{amperageProbeStateSettings},
+      $self->{amperageProbeStatus},
+  );
+  $self->{ObjectStatus} = $self->{amperageProbeStatus};
   $self->SUPER::check();
 }
 

@@ -1,6 +1,8 @@
-* 2017-09-25 1.0.0.3
+* 2017-10-20 1.0.0.4
+  tune systemTable walk
+* 2017-10-20 1.0.0.3
   edited wrong file
-* 2017-09-25 1.0.0.2
+* 2017-10-20 1.0.0.2
   ignore redundancy falure for power units without redundancy
 * 2017-09-25 1.0.0.1
   ignore redundancy for raid0 vdisks with only 1 pdisk
