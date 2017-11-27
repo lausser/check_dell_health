@@ -11,21 +11,16 @@ sub classify {
     if (! $self->check_messages()) {
       $self->add_ok(sprintf "I am a %s", $self->{productname}) if $self->opts->verbose > 2;
       if ($self->{productname} =~ /Dell iDRAC/) {
-        bless $self, 'Classes::Dell::IDRAC';
-        $self->debug('using Classes::Dell::IDRAC');
+        $self->rebless('Classes::Dell::IDRAC');
       } elsif ($self->implements_mib('IDRAC-MIB-SMIv2')) {
-        bless $self, 'Classes::Dell::IDRAC';
-        $self->debug('using Classes::Dell::IDRAC');
+        $self->rebless('Classes::Dell::IDRAC');
       } elsif ($self->implements_mib('DELL-RAC-MIB')) {
-        bless $self, 'Classes::Dell::RAC';
-        $self->debug('using Classes::Dell::RAC');
+        $self->rebless('Classes::Dell::RAC');
       } else {
         if (my $class = $self->discover_suitable_class()) {
-          bless $self, $class;
-          $self->debug('using '.$class);
+          $self->rebless($class);
         } else {
-          bless $self, 'Classes::Generic';
-          $self->debug('using Classes::Generic');
+          $self->rebless('Classes::Generic');
         }
       }
     }
