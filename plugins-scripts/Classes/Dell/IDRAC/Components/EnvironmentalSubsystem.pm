@@ -335,6 +335,17 @@ package Classes::Dell::IDRAC::Components::CoolingDevice;
 our @ISA = qw(Classes::Dell::IDRAC::Components::ObjectStatusEnum);
 use strict;
 
+sub finish {
+  my $self = shift;
+  if (! exists $self->{coolingDeviceLocationName}) {
+    # at least once i found a table entry with just coolingDeviceFQDD
+    # and nothing else
+    $self->{coolingDeviceLocationName} = $self->{coolingDeviceFQDD};
+    # let's hope the best
+    $self->{coolingDeviceStatus} = "ok";
+  }
+}
+
 sub check {
   my $self = shift;
   $self->add_info(sprintf 'cooling device (%s) status is %s',
