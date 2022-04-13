@@ -466,17 +466,53 @@ package Classes::Dell::IDRAC::Components::EnclosureFan;
 our @ISA = qw(Classes::Dell::IDRAC::Components::ObjectStatusEnum);
 use strict;
 
+sub check {
+  my $self = shift;
+  $self->add_info(sprintf 'enclosure fan (%s) status is %s',
+      $self->{enclosureFanNumber}, $self->{enclosureFanComponentStatus},
+  );
+  $self->{ObjectStatus} = $self->{enclosureFanComponentStatus};
+  $self->SUPER::check();
+}
+
 package Classes::Dell::IDRAC::Components::EnclosurePowerSupply;
 our @ISA = qw(Classes::Dell::IDRAC::Components::ObjectStatusEnum);
 use strict;
+
+sub check {
+  my $self = shift;
+  $self->add_info(sprintf 'enclosure power supply (%s) status is %s',
+      $self->{enclosurePowerSupplyNumber}, $self->{enclosurePowerSupplyComponentStatus},
+  );
+  $self->{ObjectStatus} = $self->{enclosurePowerSupplyComponentStatus};
+  $self->SUPER::check();
+}
 
 package Classes::Dell::IDRAC::Components::EnclosureTemperatureProbe;
 our @ISA = qw(Classes::Dell::IDRAC::Components::ObjectStatusEnum);
 use strict;
 
+sub check {
+  my $self = shift;
+  $self->add_info(sprintf 'enclosure temperature probe (%s) status is %s',
+      $self->{enclosureTemperatureProbeNumber}, $self->{enclosureTemperatureProbeComponentStatus},
+  );
+  $self->{ObjectStatus} = $self->{enclosureTemperatureProbeComponentStatus};
+  $self->SUPER::check();
+}
+
 package Classes::Dell::IDRAC::Components::EnclosureManagementModule;
 our @ISA = qw(Classes::Dell::IDRAC::Components::ObjectStatusEnum);
 use strict;
+
+sub check {
+  my $self = shift;
+  $self->add_info(sprintf 'enclosure management module (%s) status is %s',
+      $self->{enclosureManagementModuleNumber}, $self->{enclosureManagementModuleComponentStatus},
+  );
+  $self->{ObjectStatus} = $self->{enclosureManagementModuleComponentStatus};
+  $self->SUPER::check();
+}
 
 package Classes::Dell::IDRAC::Components::Battery;
 our @ISA = qw(Classes::Dell::IDRAC::Components::ObjectStatusEnum);
