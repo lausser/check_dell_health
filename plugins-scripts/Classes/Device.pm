@@ -16,6 +16,8 @@ sub classify {
         $self->rebless('Classes::Dell::IDRAC');
       } elsif ($self->implements_mib('DELL-RAC-MIB')) {
         $self->rebless('Classes::Dell::RAC');
+      } elsif ($self->implements_mib('MIB-DELL-10892')) {
+        $self->rebless('Classes::Dell::10892');
       } else {
         if (my $class = $self->discover_suitable_class()) {
           $self->rebless($class);

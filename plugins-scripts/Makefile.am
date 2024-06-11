@@ -12,14 +12,20 @@ GL_MODULES=\
   ../GLPlugin/lib/Monitoring/GLPlugin/SNMP/MibsAndOids/SNMPFRAMEWORKMIB.pm \
   ../GLPlugin/lib/Monitoring/GLPlugin/SNMP/MibsAndOids/IDRACMIBSMIV2.pm \
   ../GLPlugin/lib/Monitoring/GLPlugin/SNMP/MibsAndOids/DELLRACMIB.pm \
+  ../GLPlugin/lib/Monitoring/GLPlugin/SNMP/MibsAndOids/MIBDELL10892.pm \
+  ../GLPlugin/lib/Monitoring/GLPlugin/SNMP/MibsAndOids/DELLSTORAGESCMIB.pm \
   ../GLPlugin/lib/Monitoring/GLPlugin/SNMP/CSF.pm \
   ../GLPlugin/lib/Monitoring/GLPlugin/SNMP/Item.pm \
   ../GLPlugin/lib/Monitoring/GLPlugin/SNMP/TableItem.pm
 EXTRA_MODULES=\
   Classes/Dell/RAC.pm \
   Classes/Dell/RAC/Components/EnvironmentalSubsystem.pm \
+  Classes/Dell/10892.pm \
+  Classes/Dell/10892/Components/EnvironmentalSubsystem.pm \
+  Classes/Dell/10892/Components/TemperatureSubsystem.pm \
   Classes/Dell/IDRAC.pm \
   Classes/Dell/IDRAC/Components/EnvironmentalSubsystem.pm \
+  Classes/Dell/IDRAC/Components/EventlogSubsystem.pm \
   Classes/Device.pm
 
 SED=/bin/sed

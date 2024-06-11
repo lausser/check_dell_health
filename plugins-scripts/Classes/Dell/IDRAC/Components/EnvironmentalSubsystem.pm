@@ -18,7 +18,7 @@ sub init {
       ['systembioss', 'systemBIOSTable', 'Classes::Dell::IDRAC::Components::SystemBIOS'],
       ['firmwares', 'firmwareTable', 'Classes::Dell::IDRAC::Components::Firmware'],
       ['intrusions', 'intrusionTable', 'Classes::Dell::IDRAC::Components::Intrusion'],
-      ['lclogs', 'lcLogTable', 'Classes::Dell::IDRAC::Components::LcLog'],
+      #['lclogs', 'lcLogTable', 'Classes::Dell::IDRAC::Components::LcLog'],
       ['powerunits', 'powerUnitTable', 'Classes::Dell::IDRAC::Components::PowerUnit'],
       ['powersupplys', 'powerSupplyTable', 'Classes::Dell::IDRAC::Components::PowerSupply'],
       #too much unknowns#['voltageprobes', 'voltageProbeTable', 'Classes::Dell::IDRAC::Components::VoltageProbe'],
@@ -162,20 +162,6 @@ sub check {
 }
 
 
-package Classes::Dell::IDRAC::Components::EventLog;
-our @ISA = qw(Classes::Dell::IDRAC::Components::ObjectStatusEnum);
-use strict;
-
-sub check {
-  my $self = shift;
-  $self->add_info(sprintf 'event log (%s) status is %s',
-      $self->{eventLogDateName}, $self->{eventLogSeverityStatus},
-  );
-  $self->{ObjectStatus} = $self->{eventLogSeverityStatus};
-  $self->SUPER::check();
-}
-
-
 package Classes::Dell::IDRAC::Components::SystemBIOS;
 our @ISA = qw(Classes::Dell::IDRAC::Components::ObjectStatusEnum);
 use strict;
@@ -222,10 +208,6 @@ sub check {
   }
 }
 
-
-package Classes::Dell::IDRAC::Components::LcLog;
-our @ISA = qw(Classes::Dell::IDRAC::Components::ObjectStatusEnum);
-use strict;
 
 package Classes::Dell::IDRAC::Components::PowerUnit;
 our @ISA = qw(Classes::Dell::IDRAC::Components::ObjectStatusEnum);
