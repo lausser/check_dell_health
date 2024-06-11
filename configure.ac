@@ -52,6 +52,11 @@ AC_ARG_WITH(perl,
     [sets path to perl executable]),
   with_perl=$withval,with_perl=$PERL)
 AC_SUBST(PERL, $with_perl)
+AC_CHECK_PROGS(DOS2UNIX, [dos2unix fromdos], [none])
+if test "$DOS2UNIX" = "none"; then
+  AC_MSG_ERROR([Neither dos2unix nor fromdos found])
+fi
+AC_SUBST(DOS2UNIX)
 
 AC_ARG_ENABLE([standalone],
     AS_HELP_STRING([--disable-standalone], [Disable feature standalone]))
@@ -64,3 +69,4 @@ ACX_FEATURE([with],[perl])
 ACX_FEATURE([with],[nagios-user])
 ACX_FEATURE([with],[nagios-group])
 ACX_FEATURE([disable],[standalone], $disable_standalone)
+
