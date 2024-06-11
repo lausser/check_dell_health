@@ -52,9 +52,11 @@ AC_ARG_WITH(perl,
     [sets path to perl executable]),
   with_perl=$withval,with_perl=$PERL)
 AC_SUBST(PERL, $with_perl)
-AC_CHECK_PROGS(DOS2UNIX, [dos2unix fromdos], [none])
+AC_CHECK_PROGS(DOS2UNIX, [dos2unix fromdos touch], [none])
 if test "$DOS2UNIX" = "none"; then
   AC_MSG_ERROR([Neither dos2unix nor fromdos found])
+elif test "$DOS2UNIX" = "touch"; then
+  AC_MSG_NOTICE([Neither dos2unix nor fromdos found, using touch])
 fi
 AC_SUBST(DOS2UNIX)
 
